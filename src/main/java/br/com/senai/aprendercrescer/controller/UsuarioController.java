@@ -5,10 +5,9 @@
  */
 package br.com.senai.aprendercrescer.controller;
 
+import br.com.senai.aprendercrescer.dao.ConexaoDao;
 import br.com.senai.aprendercrescer.model.Usuario;
-import br.com.senai.aprendercrescer.ws.UsuarioWs;
 import java.util.ArrayList;
-import javax.swing.JOptionPane;
 
 /**
  *
@@ -16,33 +15,24 @@ import javax.swing.JOptionPane;
  */
 public class UsuarioController {
 
-    UsuarioWs UsuarioWs;
+    ConexaoDao conexaoDao;
 
     public UsuarioController() {
-        UsuarioWs = new UsuarioWs();
-    }
-
-    public boolean gravaUsuario(Usuario usuario) {
-        if (usuario.getIdUsuario() != 0) {
-            return UsuarioWs.updateUsuario(usuario);
-        } else if (usuario.getValor) {
-            JOptionPane.showMessageDialog(null, "Gasto de mais \nlancamento abortado");
-            return false;
-        } else {
-            return UsuarioWs.insereUsuario(usuario);
+        if (conexaoDao == null) {
+            conexaoDao = new ConexaoDao();
         }
-
     }
 
-    public ArrayList<Usuario> getAllUsuario() {
-
-        return UsuarioWs.getAllUsuario();
+    public boolean insereUsuario(Usuario usuario) {
+        return conexaoDao.insereUsuario(usuario);
     }
 
-    public boolean excluirDado(int id) {
-
-        return UsuarioWs.excluir(id);
+    public ArrayList<Usuario> getUsuario() {
+        return conexaoDao.getAllUsuario();
     }
 
+    public boolean deleteUsuario(int id) {
+        return conexaoDao.excluir(id);
+        
+    }
 }
-
