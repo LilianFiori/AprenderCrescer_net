@@ -5,7 +5,7 @@
  */
 package br.com.senai.aprendercrescer.controller;
 
-import br.com.senai.aprendercrescer.dao.ConexaoDao;
+import br.com.senai.aprendercrescer.dao.UsuarioDao;
 import br.com.senai.aprendercrescer.model.Usuario;
 import java.util.ArrayList;
 
@@ -15,11 +15,11 @@ import java.util.ArrayList;
  */
 public class UsuarioController {
 
-    ConexaoDao conexaoDao;
+    UsuarioDao conexaoDao;
 
     public UsuarioController() {
         if (conexaoDao == null) {
-            conexaoDao = new ConexaoDao();
+            conexaoDao = new UsuarioDao();
         }
     }
 

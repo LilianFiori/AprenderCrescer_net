@@ -18,7 +18,7 @@ import javax.swing.JOptionPane;
  *
  * @author Senai
  */
-public class ConexaoDao {
+public class UsuarioDao {
     
     Statement st;
     PreparedStatement prepst;
@@ -27,7 +27,7 @@ public class ConexaoDao {
             + " idconta, descricao, tipoconta, valor)"
             + "  VALUES ((SELECT COALESCE(max(idconta)+1,1) from conta) , ?, ?, ?);";
 
-    static String SELECTALL = "SELECT idconta, descricao, tipoconta, valor  FROM conta order by idconta";
+    static String SELECTALL = "SELECT  IDUSUARIO, IDGRUPO,LOGIN, SENHAUSUARIO, NOMEUSUARIO,DTALTERACAO,FLAGINATIVO FROM USUARIO";
     static String UPDATE = "UPDATE conta SET idconta=?, descricao=?, tipoconta=?, valor=?  WHERE idconta = ? ;";
     static String DELETE = "DELETE FROM conta  WHERE idconta = ?;";
 
@@ -63,13 +63,13 @@ public class ConexaoDao {
 
             while (rs.next()) {
                 Usuario conta = new Usuario();
-                conta.setLogin(rs.getString("login"));
-                conta.setNome(rs.getString("nome"));
-                conta.setSenha(rs.getString("Senha"));
-                conta.setIdGrupo(rs.getInt("IdGrupo"));
-                conta.setIdUsuario(rs.getInt("IdUsuario"));
-                conta.setFlagInativo(rs.getString("FlagInativo").toCharArray()[0]);
-                conta.setDtAlteracao(rs.getDate("DtAlteracao"));
+                conta.setLogin(rs.getString("LOGIN"));
+                conta.setNome(rs.getString("NOMEUSUARIO"));
+                conta.setSenha(rs.getString("SENHAUSUARIO"));
+                conta.setIdGrupo(rs.getInt("IDGRUPO"));
+                conta.setIdUsuario(rs.getInt("IDUSUARIO"));
+                conta.setFlagInativo(rs.getString("FLAGINATIVO").toCharArray()[0]);
+                conta.setDtAlteracao(rs.getDate("DTALTERACAO"));
                 
                 lista.add(conta);
 
