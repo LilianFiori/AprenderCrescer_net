@@ -7,6 +7,7 @@ package br.com.senai.aprendercrescer.controller;
 
 import br.com.senai.aprendercrescer.dao.UsuarioDao;
 import br.com.senai.aprendercrescer.model.Usuario;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 /**
@@ -23,7 +24,7 @@ public class UsuarioController {
         }
     }
 
-    public boolean insereUsuario(Usuario usuario) {
+    public boolean insereUsuario(Usuario usuario)throws SQLException {
         return conexaoDao.insereUsuario(usuario);
     }
 

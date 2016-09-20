@@ -24,11 +24,11 @@ public class GrupoDao {
     PreparedStatement prepst;
 
     static String INSERT = "INSERT INTO grupo("
-            + " idgrupo, descricaogrupo, tipousuario)"
-            + "  VALUES ((SELECT COALESCE(max(idgrupo)+1,1) from grupo) , ?, ?, ?);";
+            + " idgrupo, tipousuario, descricaogrupo)"
+            + "  VALUES ((SELECT COALESCE(max(idgrupo)+1,1) from grupo) , ?, ?);";
 
-    static String SELECTALL = "SELECT idgrupo, descricaogrupo, tipousuario  FROM grupo order by idgrupo";
-    static String UPDATE = "UPDATE grupo SET idgrupo=?, descricaogrupo=?, tipousuario=?  WHERE idgrupo = ? ;";
+    static String SELECTALL = "SELECT idgrupo, tipousuario, descricaogrupo  FROM grupo order by idgrupo";
+    static String UPDATE = "UPDATE grupo SET idgrupo=?, tipousuario=?, descricaogrupo=?  WHERE idgrupo = ? ;";
     static String DELETE = "DELETE FROM grupo  WHERE idgrupo = ?;";
 
     public boolean insereGrupo(grupo grupoDao) {
@@ -60,9 +60,6 @@ public class GrupoDao {
                 grupo conta = new grupo();
                 conta.setTipoUsuario(rs.getString("tipousuario"));
                 conta.setDescricaoGrupo(rs.getString("descricaogrupo"));
-                conta.setIdGrupo(rs.getInt("idgrupo"));
-                
-                
                 lista.add(conta);
 
             }
@@ -78,9 +75,9 @@ public class GrupoDao {
         try {
 
             PreparedStatement preparedStatement = Conexao.getConexao().prepareStatement(UPDATE);
-            preparedStatement.setString(1, grupo.getDescricaoGrupo()+"");
-            preparedStatement.setString(2, grupo.getTipoUsuario()+"");
-            preparedStatement.setInt(3, grupo.getIdGrupo());           
+            preparedStatement.setInt(1, grupo.getIdGrupo()); 
+            preparedStatement.setString(2, grupo.getTipoUsuario()+"");  
+            preparedStatement.setString(3, grupo.getDescricaoGrupo()+"");     
             preparedStatement.execute();
             return true;
         } catch (Exception ex) {
