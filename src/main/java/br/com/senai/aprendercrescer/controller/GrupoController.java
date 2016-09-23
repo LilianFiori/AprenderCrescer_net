@@ -6,7 +6,7 @@
 package br.com.senai.aprendercrescer.controller;
 
 import br.com.senai.aprendercrescer.dao.GrupoDao;
-import br.com.senai.aprendercrescer.model.grupo;
+import br.com.senai.aprendercrescer.model.Grupo;
 import java.util.ArrayList;
 
 /**
@@ -23,11 +23,11 @@ public class GrupoController {
         }
     }
 
-    public boolean insereGrupo(grupo grupo) {
+    public boolean insereGrupo(Grupo grupo) {
         return GrupoDao.insereGrupo(grupo);
     }
 
-    public ArrayList<grupo> getGrupo() {
+    public ArrayList<Grupo> getGrupo() {
         return GrupoDao.getGrupo();
     }
 

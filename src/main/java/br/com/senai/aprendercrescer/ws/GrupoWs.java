@@ -6,7 +6,7 @@
 package br.com.senai.aprendercrescer.ws;
 
 import br.com.senai.aprendercrescer.controller.GrupoController;
-import br.com.senai.aprendercrescer.model.grupo;
+import br.com.senai.aprendercrescer.model.Grupo;
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -54,11 +54,11 @@ public class GrupoWs {
         try {
             GrupoController grupoController;
             grupoController = new GrupoController();
-            ArrayList<grupo> lista = grupoController.getGrupo();
+            ArrayList<Grupo> lista = grupoController.getGrupo();
             JSONObject retorno = new JSONObject();
             JSONObject jGrupo;
 
-            for (grupo grupo : lista) {
+            for (Grupo grupo : lista) {
                 jGrupo = new JSONObject();
                 jGrupo.put("idGrupo", grupo.getIdGrupo());
                 jGrupo.put("TipoUsuario", grupo.getTipoUsuario());
@@ -90,10 +90,10 @@ public class GrupoWs {
             System.out.println(requisicaoFinal.toString());
 
             JSONObject resposta = new JSONObject(requisicaoFinal.toString());
-            grupo grupo = new grupo();
+            Grupo grupo = new Grupo();
 
          
-            grupo.setTipoUsuario(resposta.getString("tipousuario"));
+            grupo.setTipoUsuario(resposta.getString("tipousuario").toCharArray()[0]);
             grupo.setDescricaoGrupo(resposta.getString("descricaogrupo"));
          
             new GrupoController().insereGrupo(grupo);

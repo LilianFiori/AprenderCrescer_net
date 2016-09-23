@@ -9,16 +9,16 @@ package br.com.senai.aprendercrescer.model;
  *
  * @author Senai
  */
-public class grupo {
+public class Grupo {
     private int idGrupo;
-    private String TipoUsuario;
+    private char TipoUsuario;
     private String DescricaoGrupo;
 
     public int getIdGrupo() {
         return idGrupo;
     }
 
-    public String getTipoUsuario() {
+    public char getTipoUsuario() {
         return TipoUsuario;
     }
 
@@ -30,7 +30,7 @@ public class grupo {
         this.idGrupo = idGrupo;
     }
 
-    public void setTipoUsuario(String TipoUsuario) {
+    public void setTipoUsuario(char TipoUsuario) {
         this.TipoUsuario = TipoUsuario;
     }
 

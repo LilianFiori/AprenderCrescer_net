@@ -5,7 +5,7 @@
  */
 package br.com.senai.aprendercrescer.dao;
 
-import br.com.senai.aprendercrescer.model.grupo;
+import br.com.senai.aprendercrescer.model.Grupo;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -31,14 +31,14 @@ public class GrupoDao {
     static String UPDATE = "UPDATE grupo SET idgrupo=?, tipousuario=?, descricaogrupo=?  WHERE idgrupo = ? ;";
     static String DELETE = "DELETE FROM grupo  WHERE idgrupo = ?;";
 
-    public boolean insereGrupo(grupo grupoDao) {
+    public boolean insereGrupo(Grupo grupoDao) {
         ResultSet rs;
         int id = 0;
         try {
             PreparedStatement preparedStatement = Conexao.getConexao().prepareStatement(INSERT);
             //preparedStatement.setInt(1, 0);
-            preparedStatement.setInt(1, grupoDao.getIdGrupo());
-            preparedStatement.setString(2, grupoDao.getTipoUsuario() + "");
+            //preparedStatement.setInt(1, grupoDao.getIdGrupo());
+            preparedStatement.setString(1, grupoDao.getTipoUsuario() + "");
             preparedStatement.setString(2, grupoDao.getDescricaoGrupo() + "");
             preparedStatement.execute();
             return true;
@@ -49,18 +49,18 @@ public class GrupoDao {
         return false;
     }
 
-    public ArrayList<grupo> getGrupo() {
-        ArrayList<grupo> lista = new ArrayList<grupo>();
+    public ArrayList<Grupo> getGrupo() {
+        ArrayList<Grupo> lista = new ArrayList<Grupo>();
 
         try {
             PreparedStatement preparedStatement = Conexao.getConexao().prepareStatement(SELECTALL);
             ResultSet rs = preparedStatement.executeQuery();
 
             while (rs.next()) {
-                grupo conta = new grupo();
-                conta.setTipoUsuario(rs.getString("tipousuario"));
-                conta.setDescricaoGrupo(rs.getString("descricaogrupo"));
-                lista.add(conta);
+                Grupo grupo = new Grupo();
+                grupo.setTipoUsuario(rs.getString("tipousuario").toCharArray()[0]);
+                grupo.setDescricaoGrupo(rs.getString("descricaogrupo"));
+                lista.add(grupo);
 
             }
 
@@ -71,7 +71,7 @@ public class GrupoDao {
         return lista;
     }
 
-    public boolean updateGrupo(grupo grupo) {
+    public boolean updateGrupo(Grupo grupo) {
         try {
 
             PreparedStatement preparedStatement = Conexao.getConexao().prepareStatement(UPDATE);

@@ -62,16 +62,16 @@ public class UsuarioDao {
             ResultSet rs = preparedStatement.executeQuery();
 
             while (rs.next()) {
-                Usuario conta = new Usuario();
-                conta.setLogin(rs.getString("LOGIN"));
-                conta.setNome(rs.getString("NOMEUSUARIO"));
-                conta.setSenha(rs.getInt("SENHAUSUARIO"));
-                conta.setIdGrupo(rs.getInt("IDGRUPO"));
-                conta.setIdUsuario(rs.getInt("IDUSUARIO"));
-                conta.setFlagInativo(rs.getString("FLAGINATIVO").toCharArray()[0]);
-                conta.setDtAlteracao(rs.getDate("DTALTERACAO"));
+                Usuario usuario = new Usuario();
+                usuario.setLogin(rs.getString("LOGIN"));
+                usuario.setNome(rs.getString("NOMEUSUARIO"));
+                usuario.setSenha(rs.getInt("SENHAUSUARIO"));
+                usuario.setIdGrupo(rs.getInt("IDGRUPO"));
+                usuario.setIdUsuario(rs.getInt("IDUSUARIO"));
+                usuario.setFlagInativo(rs.getString("FLAGINATIVO").toCharArray()[0]);
+                usuario.setDtAlteracao(rs.getDate("DTALTERACAO"));
                 
-                lista.add(conta);
+                lista.add(usuario);
 
             }
 
