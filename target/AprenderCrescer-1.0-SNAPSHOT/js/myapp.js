@@ -4,4 +4,5 @@
  * and open the template in the editor.
  */
 
-
+'use strict';
+var myApp = angular.module("myApp", []);

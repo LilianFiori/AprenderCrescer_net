@@ -46,27 +46,41 @@ public class UsuarioWs {
     @GET
     @Path("/getusuarios")
     @Produces("application/json")
+    public Response getAllUsuarios() {
+        // ArrayList<JSONObject> listaJson = new ArrayList<JSONObject>();
 
-    public Response getAllUsuario() {
         try {
-            UsuarioController usuarioController;
-            usuarioController = new UsuarioController();
-            ArrayList<Usuario> lista = usuarioController.getUsuario();
-            JSONObject retorno = new JSONObject();
-            JSONObject jUsuario;
+            UsuarioController ususarioControler;
+            ususarioControler = new UsuarioController();
+            ArrayList<Usuario> lista = ususarioControler.getUsuario();
 
+            JSONObject jUsuario;
+            StringBuilder retorno = new StringBuilder();
+            retorno.append("[");
+            boolean controle = false;
             for (Usuario usuario : lista) {
+                if (controle) {
+                    retorno.append(" , ");
+                }
+
                 jUsuario = new JSONObject();
                 jUsuario.put("idUsuario", usuario.getIdUsuario());
+                jUsuario.put("idGrupo", usuario.getIdGrupo());
+                jUsuario.put("login", usuario.getLogin());
+                jUsuario.put("senha", usuario.getSenha());
                 jUsuario.put("nome", usuario.getNome());
-                retorno.put("usuario" + usuario.getIdUsuario(), jUsuario);
+                jUsuario.put("flagInativo", usuario.getFlagInativo() + "");
+                retorno.append(jUsuario.toString());
+                controle = true;
             }
+
+            retorno.append("]");
             return Response.status(200).entity(retorno.toString()).build();
         } catch (Exception ex) {
             System.out.println("Erro:" + ex);
-
             return Response.status(200).entity(
                     "{erro : \"" + ex + "\"}").build();
+
         }
     }
 
