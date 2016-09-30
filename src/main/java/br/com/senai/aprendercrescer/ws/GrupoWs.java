@@ -28,7 +28,7 @@ import org.json.JSONObject;
  */
 @Path("/grupo")
 public class GrupoWs {
-    
+
     @GET
     @Path("/getgrupo")
     @Produces("application/json")
@@ -55,15 +55,24 @@ public class GrupoWs {
             GrupoController grupoController;
             grupoController = new GrupoController();
             ArrayList<Grupo> lista = grupoController.getGrupo();
-            JSONObject retorno = new JSONObject();
             JSONObject jGrupo;
-
+            
+            StringBuilder retorno = new StringBuilder();
+            retorno.append("[");
+            boolean controle = false;
             for (Grupo grupo : lista) {
+                if (controle) {
+                    retorno.append(" , ");
+                }
+
                 jGrupo = new JSONObject();
                 jGrupo.put("idGrupo", grupo.getIdGrupo());
                 jGrupo.put("TipoUsuario", grupo.getTipoUsuario());
-                retorno.put("DescricaoGrupo" + grupo.getDescricaoGrupo(), jGrupo);
+                jGrupo.put("DescricaoGrupo" + grupo.getDescricaoGrupo(), jGrupo);
+                retorno.append(jGrupo.toString());
+                controle = true;
             }
+            retorno.append("]");
             return Response.status(200).entity(retorno.toString()).build();
         } catch (Exception ex) {
             System.out.println("Erro:" + ex);
@@ -72,7 +81,7 @@ public class GrupoWs {
                     "{erro : \"" + ex + "\"}").build();
         }
     }
-    
+
     @POST
     @Path("/setgrupo")
     @Consumes(MediaType.APPLICATION_JSON)
@@ -92,10 +101,9 @@ public class GrupoWs {
             JSONObject resposta = new JSONObject(requisicaoFinal.toString());
             Grupo grupo = new Grupo();
 
-         
             grupo.setTipoUsuario(resposta.getString("tipousuario").toCharArray()[0]);
             grupo.setDescricaoGrupo(resposta.getString("descricaogrupo"));
-         
+
             new GrupoController().insereGrupo(grupo);
             Response.status(200).entity(requisicaoFinal.toString()).build();
 
@@ -106,7 +114,5 @@ public class GrupoWs {
         return null;
 
     }
-    
+
 }
-
-

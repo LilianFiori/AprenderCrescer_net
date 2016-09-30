@@ -53,7 +53,6 @@ public class UsuarioWs {
             UsuarioController ususarioControler;
             ususarioControler = new UsuarioController();
             ArrayList<Usuario> lista = ususarioControler.getUsuario();
-
             JSONObject jUsuario;
             StringBuilder retorno = new StringBuilder();
             retorno.append("[");
@@ -109,8 +108,7 @@ public class UsuarioWs {
             usuario.setIdGrupo(resposta.getInt("idGrupo"));
             usuario.setFlagInativo(resposta.getString("flaginativo").toCharArray()[0]);
             usuario.setDtAlteracao(new Date());
-            
-            
+
             new UsuarioController().insereUsuario(usuario);
             Response.status(200).entity(requisicaoFinal.toString()).build();
 

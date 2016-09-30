@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html ng-app="myApp">
+    <head>
+        <title>Lista Grupo</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <script type="text/javascript" src="vendor/js/angular.min.js"></script>
+        <script type="text/javascript" src="js/myApp.js"></script>
+        <script type="text/javaScript" src="js/controller/GrupoController.js"></script>
+        <script type="text/javaScript" src="js/factory/GrupoFactory.js"></script> 
+    </head>
+    <body ng-controller="GrupoController" ng-init="buscaGrupos()">
+    <div>
+        <h1> Lista Grupo</h1>
+        <div>
+            <table>
+                <thead>
+                    <tr> 
+                        <th>IdGrupo</th>
+                        <th>TipoUsuario</th>
+                        <th>DescricaoGrupo</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="item in dados">
+                        <td>{{item.idGrupo}}</td>
+                        <td>{{item.TipoUsuario}}</td>
+                        <td>{{item.DescricaoGrupo}}</td>
+                        <td>
+                            <button>Remover</button>
+                            <button>Editar</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+</body>
+</html>
