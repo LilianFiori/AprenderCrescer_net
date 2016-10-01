@@ -2,15 +2,16 @@
 myApp.controller('ContaController', function ContaController($scope, $http, ContaFactory) {
 
     $scope.dados = [{"idconta": 1,
-            "descricao": "nnnn",
-            "valor": "",
-            
+            "descricao": "Conta Corrente",
+            "tipoconta": "Debito",
+            "valor": 12.60,
+     
         }];
-     $scope.buscaGrupo = function(){
-            GrupoFactory.getGrupo( $scope.callbackGrupo);
+     $scope.buscaConta = function(){
+            ContaFactory.getConta( $scope.callbackConta);
      }
 
-     $scope.callbackGrupo = function(resposta){
+     $scope.callbackConta = function(resposta){
         $scope.dados = resposta.data;         
      }
 

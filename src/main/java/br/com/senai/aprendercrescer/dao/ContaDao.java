@@ -24,7 +24,7 @@ public class ContaDao {
 
     static String INSERT = "INSERT INTO Conta("
             + " idconta, descricao, tipoconta, valor)"
-            + "  VALUES ((SELECT COALESCE(max(idconta)+1,1) from conta) , ?, ?, ?);";
+            + "  VALUES ((SELECT COALESCE(max(idconta)+1,1) from conta) , ?, ?, ?, ?);";
 
     static String SELECTALL = "SELECT idconta, descricao, tipoconta, valor  FROM conta order by idconta";
     static String UPDATE = "UPDATE conta SET idconta=?, descricao=?, tipoconta=?,valor=?  WHERE idconta = ? ;";
@@ -36,10 +36,10 @@ public class ContaDao {
         try {
             PreparedStatement preparedStatement = Conexao.getConexao().prepareStatement(INSERT);
             //preparedStatement.setInt(1, 0);
-            //preparedStatement.setInt(1, conta.getIdConta());
-            preparedStatement.setString(1, conta.getDescricao() + "");
-            preparedStatement.setString(2, conta.getTipoConta() + "");
-            preparedStatement.setDouble(3, conta.getValor());
+            preparedStatement.setInt(1, conta.getIdConta());
+            preparedStatement.setString(2, conta.getDescricao() + "");
+            preparedStatement.setString(3, conta.getTipoConta() + "");
+            preparedStatement.setDouble(4, conta.getValor());
             preparedStatement.execute();
             return true;
         } catch (SQLException ex) {
@@ -58,7 +58,7 @@ public class ContaDao {
 
             while (rs.next()) {
                 Conta conta = new Conta();
-                //conta.setIdConta(rs.getInt("idconta"));
+                conta.setIdConta(rs.getInt("idconta"));
                 conta.setDescricao(rs.getString("descricao"));
                 conta.setTipoConta(rs.getString("tipoconta"));
                 conta.setValor(rs.getDouble("valor"));

@@ -17,6 +17,39 @@ and open the template in the editor.
        
     </head>
     <body ng-controller="UsuarioController" ng-init="buscaUsuarios()">
+        <div ng-hide="editando">
+            <h1>Cadastro</h1>      
+        </div>
+        <div ng-show="editando">
+            <h1>Editar</h1>
+        </div>
+        
+        <form ng-submit="cadastroUsuario(usuario)">
+            <div>
+                <label>Nome: </label>
+                <input ng-model="usuario.nome" type="text" 
+                       placeholder="Digite seu Nome" >
+            </div>
+            <div>
+                <label>Login:</label>
+                <input ng-model="usuario.login" type="text" placeholder="Digite seu Login"> 
+            </div>
+            <div>
+                <label>Ativo:</label>
+                <input ng-model="usuario.flagInativo" type="text" placeholder="Esta Ativo?" > 
+            </div>
+            <div>
+                <label>idGrupo:</label>
+                <input ng-model="usuario.idGrupo" type="text" placeholder="Digite seu IdGrupo" > 
+            </div>  
+            <div>
+                <label>Senha:</label>
+                <input ng-model="usuario.senha" type="password" placeholder="Digite sua senha" > 
+            </div>
+            <button ng-show="editando" type="submit">Salvar</button>
+            <button ng-hide="editando" type="submit">Adicionar</button>
+        </form>
+        
         <div>
             <h1> Lista Usuario</h1>
             <div>
@@ -40,7 +73,7 @@ and open the template in the editor.
                             <td>{{item.atvio}}</td>
                             <td>
                                 <button>Remover</button>
-                                <button>Editar</button>
+                                <button ng-click="editarUsuario()">Editar</button>
                             </td>
                         </tr>
                     </tbody>

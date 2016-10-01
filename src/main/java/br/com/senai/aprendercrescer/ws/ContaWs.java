@@ -54,16 +54,25 @@ public class ContaWs {
             ContaController ContaController;
             ContaController = new ContaController();
             ArrayList<Conta> lista = ContaController.getConta();
-            JSONObject retorno = new JSONObject();
             JSONObject jContas;
 
+            StringBuilder retorno = new StringBuilder();
+            retorno.append("[");
+            boolean controle = false;
             for (Conta conta : lista) {
+                if (controle) {
+                    retorno.append(" , ");
+                }
+
                 jContas = new JSONObject();
                 jContas.put("idconta", conta.getIdConta());
                 jContas.put("descricao", conta.getDescricao());
+                jContas.put("tipoconta", conta.getTipoConta());
                 jContas.put("valor", conta.getValor());
-                retorno.put("tipoconta" + conta.getTipoConta(), jContas);
+                retorno.append(jContas.toString());
+                controle = true;
             }
+            retorno.append("]");
             return Response.status(200).entity(retorno.toString()).build();
         } catch (Exception ex) {
             System.out.println("Erro:" + ex);

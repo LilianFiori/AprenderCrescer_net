@@ -68,7 +68,7 @@ public class GrupoWs {
                 jGrupo = new JSONObject();
                 jGrupo.put("idGrupo", grupo.getIdGrupo());
                 jGrupo.put("TipoUsuario", grupo.getTipoUsuario());
-                jGrupo.put("DescricaoGrupo" + grupo.getDescricaoGrupo(), jGrupo);
+                jGrupo.put("DescricaoGrupo" , grupo.getDescricaoGrupo());
                 retorno.append(jGrupo.toString());
                 controle = true;
             }
