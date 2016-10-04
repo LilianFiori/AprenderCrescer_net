@@ -106,17 +106,19 @@ public class UsuarioWs {
             usuario.setNome(resposta.getString("nome"));
             usuario.setSenha(resposta.getInt("senha"));
             usuario.setIdGrupo(resposta.getInt("idGrupo"));
-            usuario.setFlagInativo(resposta.getString("flaginativo").toCharArray()[0]);
+            usuario.setFlagInativo(resposta.getString("flagInativo").toCharArray()[0]);
             usuario.setDtAlteracao(new Date());
 
-            new UsuarioController().insereUsuario(usuario);
-            Response.status(200).entity(requisicaoFinal.toString()).build();
+            if (new UsuarioController().insereUsuario(usuario)) {
+                return Response.status(200).entity("{\"result\" : \"Cadastrado\"}").build();
+            } else {
+                return Response.status(501).entity("{\"result\" : \" Erro no Cadastro\"}").build();
+            }
 
         } catch (Exception ex) {
             return Response.status(501).entity(ex.toString()).build();
 
         }
-        return null;
-
     }
+
 }
