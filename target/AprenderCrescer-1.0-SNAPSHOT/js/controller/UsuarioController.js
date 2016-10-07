@@ -18,35 +18,69 @@ myApp.controller('UsuarioController', function UsuarioController($scope, $http, 
         $scope.dados = resposta.data;
     }
 
-    $scope.editarUsuario = function () {
-        $scope.editando = !$scope.editando;
+    $scope.editarUsuario = function (item) {
+        $scope.editando = true;
+        /*
+         $scope.usuario.nome = item.nome;
+         $scope.usuario.login = item.login;
+         $scope.usuario.flagInativo = item.flagInativo;
+         $scope.usuario.idGrupo = item.idGrupo;
+         $scope.usuario.idUsuario = item.idUsuario;
+         $scope.usuario.senha = item.senha;
+         */
+
+        $scope.usuario = angular.copy(item);
+
     }
 
     $scope.cadastroUsuario = function (usuario) {
-        UsuarioFactory.setUsuario($scope.callbackCadastroUsuario, usuario);
-    }
 
+        if (usuario.idUsuario && usuario.idUsuario != 0) {
+            UsuarioFactory.updateUsuario($scope.callbackCadastroUsuario, usuario);
+        } else {
+            UsuarioFactory.setUsuario($scope.callbackCadastroUsuario, usuario);
+        }
+    }
     $scope.callbackCadastroUsuario = function (resposta) {
         if (resposta.status != 200) {
-            swal("Usuario", "Erro no cadastro do usuario" , "error");
+            if ($scope.editando == true) {
+                swal("Usuario", "Erro ao atulizar o usuario", "error");
+            } else {
+                swal("Usuario", "Erro ao cadastrar o usuario", "error");
+            }
         } else {
-            
-            swal("Usuario", "Usuario Cadastrado com sucesso!", "success");
+            if ($scope.editando == true) {
+                swal("Usuario", "Usuario salvo com sucesso", "success");
+            } else {
+                swal("Usuario", "Usuario Cadastrado com sucesso!", "success");
+            }
             $scope.buscaUsuarios();
             $scope.limpaCampos();
         }
     }
     $scope.limpaCampos = function () {
+        $scope.usuario.idUsuario = "";
         $scope.usuario.nome = "";
         $scope.usuario.login = "";
-        $scope.usuario.atvio = "";
+        $scope.usuario.flagInativo = "";
         $scope.usuario.idGrupo = "";
         $scope.usuario.idUsuario = "";
-        
+        $scope.usuario.senha = "";
+        $scope.editando = false;
 
+    }
 
+    $scope.deleteUsuario = function (id) {
 
-
+        UsuarioFactory.deleteUsuario($scope.callbackDeleteUsuario, id);
+    }
+    $scope.callbackDeleteUsuario = function (resposta) {
+       if(resposta.status != 200){
+           swal("Usuario", "Erro ao deletar o usuario", "error");
+       }else{
+           swal("Usuario", "Usuario deletado com sucesso", "success");
+           $scope.limpaCampos();
+       }
     }
 })
 

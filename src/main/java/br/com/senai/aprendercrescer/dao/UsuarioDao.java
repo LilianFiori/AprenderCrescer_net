@@ -19,7 +19,7 @@ import javax.swing.JOptionPane;
  * @author Senai
  */
 public class UsuarioDao {
-    
+
     Statement st;
     PreparedStatement prepst;
 
@@ -27,31 +27,33 @@ public class UsuarioDao {
             + " ,flaginativo ) "
             + " VALUES ((SELECT COALESCE(max(idusuario)+1,1) from usuario), ?, ?, ?, ?, ?);";
 
-    static String SELECTALL = "SELECT  IDUSUARIO, IDGRUPO,LOGIN, SENHAUSUARIO, NOMEUSUARIO,DTALTERACAO,FLAGINATIVO FROM USUARIO";
-    static String UPDATE = "UPDATE conta SET idconta=?, descricao=?, tipoconta=?, valor=?  WHERE idconta = ? ;";
+    static String SELECTALL = "SELECT  IDUSUARIO, IDGRUPO,LOGIN, SENHAUSUARIO, NOMEUSUARIO,DTALTERACAO,FLAGINATIVO FROM USUARIO ORDER BY IDUSUARIO" ;
+    static String UPDATE = "UPDATE public.usuario SET idusuario=?, idgrupo=?, login=?, senhausuario=?, nomeusuario=?, flaginativo=? WHERE idUsuario=?;";
     static String DELETE = "DELETE FROM conta  WHERE idconta = ?;";
 
-    public boolean insereUsuario(Usuario usuario)throws SQLException{
+    public boolean insereUsuario(Usuario usuario) throws SQLException {
         ResultSet rs;
         int id = 0;
-        //try {
-            PreparedStatement preparedStatement = Conexao.getConexao().prepareStatement(INSERT);
-            //preparedStatement.setInt(1, 0);
-            preparedStatement.setString(1, usuario.getLogin());
-            preparedStatement.setString(2, usuario.getNome() + "");
-            preparedStatement.setInt(3, usuario.getSenha());
-            preparedStatement.setInt(4, usuario.getIdGrupo());
-            preparedStatement.setString(5, usuario.getFlagInativo()+"");
-           // preparedStatement.setString(6,  usuario.getDtAlteracao().toString());
-            
-            preparedStatement.execute();
-            return true;
-/*
-        } catch (SQLException ex) {
-            System.out.println("Problema ao inserir usuario: " + ex);
-            JOptionPane.showMessageDialog(null, "Erro:" + ex);
-        }*/
+
+        System.out.println("InsereUsuario");
         
+        PreparedStatement preparedStatement = Conexao.getConexao().prepareStatement(INSERT);
+        //preparedStatement.setInt(1, 0);
+        preparedStatement.setString(1, usuario.getLogin());
+        preparedStatement.setString(2, usuario.getNome() + "");
+        preparedStatement.setString(3, usuario.getSenha());
+        preparedStatement.setInt(4, usuario.getIdGrupo());
+        preparedStatement.setString(5, usuario.getFlagInativo() + "");
+           // preparedStatement.setString(6,  usuario.getDtAlteracao().toString());
+
+        preparedStatement.execute();
+        return true;
+        /*
+         } catch (SQLException ex) {
+         System.out.println("Problema ao inserir usuario: " + ex);
+         JOptionPane.showMessageDialog(null, "Erro:" + ex);
+         }*/
+
     }
 
     public ArrayList<Usuario> getAllUsuario() {
@@ -65,12 +67,12 @@ public class UsuarioDao {
                 Usuario usuario = new Usuario();
                 usuario.setLogin(rs.getString("LOGIN"));
                 usuario.setNome(rs.getString("NOMEUSUARIO"));
-                usuario.setSenha(rs.getInt("SENHAUSUARIO"));
+                usuario.setSenha(rs.getString("SENHAUSUARIO"));
                 usuario.setIdGrupo(rs.getInt("IDGRUPO"));
                 usuario.setIdUsuario(rs.getInt("IDUSUARIO"));
                 usuario.setFlagInativo(rs.getString("FLAGINATIVO").toCharArray()[0]);
-                usuario.setDtAlteracao(rs.getDate("DTALTERACAO"));
-                
+                //usuario.setDtAlteracao(rs.getDate("DTALTERACAO"));
+
                 lista.add(usuario);
 
             }
@@ -84,15 +86,15 @@ public class UsuarioDao {
 
     public boolean updateUsuario(Usuario usuario) {
         try {
-
+            System.out.println("UpdateUsuario");
             PreparedStatement preparedStatement = Conexao.getConexao().prepareStatement(UPDATE);
-            preparedStatement.setInt(1, usuario.getIdGrupo());
-            preparedStatement.setInt(2, usuario.getIdUsuario());
-            preparedStatement.setString(3, usuario.getNome() + "");
-            preparedStatement.setString(4, usuario.getLogin());
-            preparedStatement.setInt(5, usuario.getSenha());
-            preparedStatement.setString(6, usuario.getFlagInativo()+"");
-            preparedStatement.setDate(7, (Date) usuario.getDtAlteracao());
+            preparedStatement.setInt(1, usuario.getIdUsuario());
+            preparedStatement.setInt(2, usuario.getIdGrupo());
+            preparedStatement.setString(3, usuario.getLogin());
+            preparedStatement.setString(4, usuario.getSenha());
+            preparedStatement.setString(5, usuario.getNome() + "");
+            preparedStatement.setString(6, usuario.getFlagInativo() + "");
+            preparedStatement.setInt(7, usuario.getIdUsuario());
             preparedStatement.execute();
             return true;
         } catch (Exception ex) {
@@ -120,4 +122,3 @@ public class UsuarioDao {
     }
 
 }
-

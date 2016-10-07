@@ -73,8 +73,8 @@ and open the template in the editor.
                             <td>{{item.nome}}</td>
                             <td>{{item.atvio}}</td>
                             <td>
-                                <button>Remover</button>
-                                <button ng-click="editarUsuario()">Editar</button>
+                                <button ng-click="deleteUsuario(item.idUsuario)">Remover</button>
+                                <button ng-click="editarUsuario(item)">Editar</button>
                             </td>
                         </tr>
                     </tbody>

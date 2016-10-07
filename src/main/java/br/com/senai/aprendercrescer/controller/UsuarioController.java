@@ -25,7 +25,11 @@ public class UsuarioController {
     }
 
     public boolean insereUsuario(Usuario usuario)throws SQLException {
+        if(usuario.getIdUsuario() != 0){
+            return conexaoDao.updateUsuario(usuario);
+        }else{
         return conexaoDao.insereUsuario(usuario);
+        }
     }
 
     public ArrayList<Usuario> getUsuario() {

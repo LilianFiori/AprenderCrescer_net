@@ -16,7 +16,7 @@ public class Usuario {
     private int idUsuario;
     private int idGrupo;
     private String login;
-    private int senha;
+    private String senha;
     private String nome;
     private char flagInativo;
     private Date dtAlteracao;
@@ -33,7 +33,7 @@ public class Usuario {
         this.login = login;
     }
 
-    public void setSenha(int senha) {
+    public void setSenha(String senha) {
         this.senha = senha;
     }
 
@@ -61,7 +61,7 @@ public class Usuario {
         return login;
     }
 
-    public int getSenha() {
+    public String getSenha() {
         return senha;
     }
 
