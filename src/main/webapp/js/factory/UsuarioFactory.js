@@ -32,9 +32,9 @@ myApp.factory('UsuarioFactory', ['$http', function ($http) {
                     callback(resposta);
                 })},
             
-            deleteUsuario: function (callback, id) {
-                $http({"method": "POST",
-                    "url": "/AprenderCrescer/rest/usuario/deleteusuario/"+id,
+            deleteUsuario: function (callback, usuario) {
+                 $http({"method": "DELETE",
+                    "url": "/AprenderCrescer/rest/usuario/deleteusuario",
                     "headers": {"Content-Type": "application/json"},
                     "data": usuario
                 }).then(function (resposta) {

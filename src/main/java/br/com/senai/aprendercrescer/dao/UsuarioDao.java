@@ -29,7 +29,7 @@ public class UsuarioDao {
 
     static String SELECTALL = "SELECT  IDUSUARIO, IDGRUPO,LOGIN, SENHAUSUARIO, NOMEUSUARIO,DTALTERACAO,FLAGINATIVO FROM USUARIO ORDER BY IDUSUARIO" ;
     static String UPDATE = "UPDATE public.usuario SET idusuario=?, idgrupo=?, login=?, senhausuario=?, nomeusuario=?, flaginativo=? WHERE idUsuario=?;";
-    static String DELETE = "DELETE FROM conta  WHERE idconta = ?;";
+    static String DELETE = "DELETE FROM usuario  WHERE idusuario = ?;";
 
     public boolean insereUsuario(Usuario usuario) throws SQLException {
         ResultSet rs;
