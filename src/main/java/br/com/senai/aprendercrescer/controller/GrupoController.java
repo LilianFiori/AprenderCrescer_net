@@ -24,16 +24,19 @@ public class GrupoController {
     }
 
     public boolean insereGrupo(Grupo grupo) {
-        return GrupoDao.insereGrupo(grupo);
+        GrupoDao.gravar(grupo);
+        return true;
     }
 
     public ArrayList<Grupo> getGrupo() {
-        return GrupoDao.getGrupo();
+        return GrupoDao.getAll();
     }
 
     public boolean deleteUsuario(int id) {
-        return GrupoDao.excluir(id);
-        
+       Grupo grupo = new Grupo();
+       grupo.setIdgrupo(id);
+       GrupoDao.apagar(grupo);
+        return true;
     }
 }
 

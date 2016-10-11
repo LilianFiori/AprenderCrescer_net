@@ -5,49 +5,131 @@
  */
 package br.com.senai.aprendercrescer.model;
 
+import java.io.Serializable;
+import java.math.BigDecimal;
+import javax.persistence.Basic;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+import javax.xml.bind.annotation.XmlRootElement;
+
 /**
  *
  * @author Senai
  */
-public class Conta {
-   
-    private int IdConta;
-    private String Descricao;
-    private String TipoConta;
-    private double Valor;
+@Entity
+@Table(name = "conta")
+@XmlRootElement
+@NamedQueries({
+    @NamedQuery(name = "Conta.findAll", query = "SELECT c FROM Conta c"),
+    @NamedQuery(name = "Conta.findByIdconta", query = "SELECT c FROM Conta c WHERE c.idconta = :idconta"),
+    @NamedQuery(name = "Conta.findByDescricao", query = "SELECT c FROM Conta c WHERE c.descricao = :descricao"),
+    @NamedQuery(name = "Conta.findByTipoconta", query = "SELECT c FROM Conta c WHERE c.tipoconta = :tipoconta"),
+    @NamedQuery(name = "Conta.findByValor", query = "SELECT c FROM Conta c WHERE c.valor = :valor")})
+public class Conta extends AbstractModel implements Serializable {
+    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
+    @Column(name = "valor")
+    private BigDecimal valor;
+    private static final long serialVersionUID = 1L;
+    @Id
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "idconta")
+    private Integer idconta;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 100)
+    @Column(name = "descricao")
+    private String descricao;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 20)
+    @Column(name = "tipoconta")
+    private String tipoconta;
 
-    public int getIdConta() {
-        return IdConta;
+    public Conta() {
+    }
+
+    public Conta(Integer idconta) {
+        this.idconta = idconta;
+    }
+
+    public Conta(Integer idconta, String descricao, String tipoconta) {
+        this.idconta = idconta;
+        this.descricao = descricao;
+        this.tipoconta = tipoconta;
+    }
+
+    public Integer getIdconta() {
+        return idconta;
+    }
+
+    public void setIdconta(Integer idconta) {
+        this.idconta = idconta;
     }
 
     public String getDescricao() {
-        return Descricao;
+        return descricao;
     }
 
-    public String getTipoConta() {
-        return TipoConta;
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
     }
 
-    public double getValor() {
-        return Valor;
+    public String getTipoconta() {
+        return tipoconta;
     }
 
-    public void setIdConta(int IdConta) {
-        this.IdConta = IdConta;
+    public void setTipoconta(String tipoconta) {
+        this.tipoconta = tipoconta;
     }
 
-    public void setDescricao(String Descricao) {
-        this.Descricao = Descricao;
+
+    @Override
+    public int hashCode() {
+        int hash = 0;
+        hash += (idconta != null ? idconta.hashCode() : 0);
+        return hash;
     }
 
-    public void setTipoConta(String TipoConta) {
-        this.TipoConta = TipoConta;
+    @Override
+    public boolean equals(Object object) {
+        // TODO: Warning - this method won't work in the case the id fields are not set
+        if (!(object instanceof Conta)) {
+            return false;
+        }
+        Conta other = (Conta) object;
+        if ((this.idconta == null && other.idconta != null) || (this.idconta != null && !this.idconta.equals(other.idconta))) {
+            return false;
+        }
+        return true;
     }
 
-    public void setValor(double Valor) {
-        this.Valor = Valor;
+    @Override
+    public String toString() {
+        return "br.com.senai.aprendercrescer.model.banco.Conta[ idconta=" + idconta + " ]";
     }
-    
-    
+
+    @Override
+    public boolean isNew() {
+        if(idconta == null){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    public BigDecimal getValor() {
+        return valor;
+    }
+
+    public void setValor(BigDecimal valor) {
+        this.valor = valor;
+    }
     
 }

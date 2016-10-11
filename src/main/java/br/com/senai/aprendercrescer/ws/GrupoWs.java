@@ -66,9 +66,9 @@ public class GrupoWs {
                 }
 
                 jGrupo = new JSONObject();
-                jGrupo.put("idGrupo", grupo.getIdGrupo());
-                jGrupo.put("TipoUsuario", grupo.getTipoUsuario());
-                jGrupo.put("DescricaoGrupo" , grupo.getDescricaoGrupo());
+                jGrupo.put("idGrupo", grupo.getIdgrupo());
+                jGrupo.put("TipoUsuario", grupo.getTipousuario());
+                jGrupo.put("DescricaoGrupo" , grupo.getDescricaogrupo());
                 retorno.append(jGrupo.toString());
                 controle = true;
             }
@@ -101,8 +101,8 @@ public class GrupoWs {
             JSONObject resposta = new JSONObject(requisicaoFinal.toString());
             Grupo grupo = new Grupo();
 
-            grupo.setTipoUsuario(resposta.getString("tipousuario").toCharArray()[0]);
-            grupo.setDescricaoGrupo(resposta.getString("descricaogrupo"));
+            grupo.setTipousuario(resposta.getString("tipousuario"));
+            grupo.setDescricaogrupo(resposta.getString("descricaogrupo"));
 
             new GrupoController().insereGrupo(grupo);
             Response.status(200).entity(requisicaoFinal.toString()).build();

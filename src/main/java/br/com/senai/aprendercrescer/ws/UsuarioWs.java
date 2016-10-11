@@ -67,12 +67,12 @@ public class UsuarioWs {
                 }
 
                 jUsuario = new JSONObject();
-                jUsuario.put("idUsuario", usuario.getIdUsuario());
-                jUsuario.put("idGrupo", usuario.getIdGrupo());
+                jUsuario.put("idUsuario", usuario.getIdusuario());
+                jUsuario.put("idGrupo", usuario.getIdgrupo());
                 jUsuario.put("login", usuario.getLogin());
-                jUsuario.put("senha", usuario.getSenha());
-                jUsuario.put("nome", usuario.getNome());
-                jUsuario.put("flagInativo", usuario.getFlagInativo() + "");
+                jUsuario.put("senha", usuario.getSenhausuario());
+                jUsuario.put("nome", usuario.getNomeusuario());
+                jUsuario.put("flagInativo", usuario.getFlaginativo()+ "");
                 retorno.append(jUsuario.toString());
                 controle = true;
             }
@@ -107,11 +107,11 @@ public class UsuarioWs {
             Usuario usuario = new Usuario();
 
             usuario.setLogin(resposta.getString("login"));
-            usuario.setNome(resposta.getString("nome"));
-            usuario.setSenha(resposta.getString("senha"));
-            usuario.setIdGrupo(resposta.getInt("idGrupo"));
-            usuario.setFlagInativo(resposta.getString("flagInativo").toCharArray()[0]);
-            usuario.setDtAlteracao(new Date());
+            usuario.setNomeusuario(resposta.getString("nome"));
+            usuario.setSenhausuario(resposta.getString("senha"));
+            usuario.setIdgrupo(resposta.getInt("idGrupo"));
+            usuario.setFlaginativo(resposta.getString("flagInativo"));
+            usuario.setDtalteracao(new Date());
 
             if (new UsuarioController().insereUsuario(usuario)) {
                 return Response.status(200).entity("{\"result\" : \"Cadastrado\"}").build();
@@ -144,13 +144,13 @@ public class UsuarioWs {
             JSONObject resposta = new JSONObject(requisicaoFinal.toString());
             Usuario usuario = new Usuario();
 
-            usuario.setIdUsuario(resposta.getInt("idUsuario"));
+            usuario.setIdusuario(resposta.getInt("idUsuario"));
             usuario.setLogin(resposta.getString("login"));
-            usuario.setNome(resposta.getString("nome"));
-            usuario.setSenha(resposta.getString("senha"));
-            usuario.setIdGrupo(resposta.getInt("idGrupo"));
-            usuario.setFlagInativo(resposta.getString("flagInativo").toCharArray()[0]);
-            usuario.setDtAlteracao(new Date());
+            usuario.setNomeusuario(resposta.getString("nome"));
+            usuario.setSenhausuario(resposta.getString("senha"));
+            usuario.setIdgrupo(resposta.getInt("idGrupo"));
+            usuario.setFlaginativo(resposta.getString("flagInativo"));
+            usuario.setDtalteracao(new Date());
 
             if (new UsuarioController().insereUsuario(usuario)) {
                 return Response.status(200).entity("{\"result\" : \"Cadastrado\"}").build();

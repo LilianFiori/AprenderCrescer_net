@@ -9,6 +9,7 @@ import br.com.senai.aprendercrescer.dao.UsuarioDao;
 import br.com.senai.aprendercrescer.model.Usuario;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import static jdk.nashorn.internal.runtime.Debug.id;
 
 /**
  *
@@ -16,28 +17,26 @@ import java.util.ArrayList;
  */
 public class UsuarioController {
 
-    UsuarioDao conexaoDao;
+    UsuarioDao usuarioDao;
 
     public UsuarioController() {
-        if (conexaoDao == null) {
-            conexaoDao = new UsuarioDao();
+        if (usuarioDao == null) {
+            usuarioDao = new UsuarioDao();
         }
     }
 
-    public boolean insereUsuario(Usuario usuario)throws SQLException {
-        if(usuario.getIdUsuario() != 0){
-            return conexaoDao.updateUsuario(usuario);
-        }else{
-        return conexaoDao.insereUsuario(usuario);
-        }
+    public boolean insereUsuario(Usuario usuario) throws SQLException {
+        usuarioDao.gravar(usuario);
+        return true;
     }
 
     public ArrayList<Usuario> getUsuario() {
-        return conexaoDao.getAllUsuario();
+        return usuarioDao.getAll();
     }
 
     public boolean deleteUsuario(int id) {
-        return conexaoDao.excluir(id);
-        
+       Usuario us = new Usuario(id);
+       usuarioDao.apagar(us);
+        return true;
     }
 }

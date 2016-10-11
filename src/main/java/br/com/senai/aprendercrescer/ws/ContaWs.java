@@ -65,9 +65,9 @@ public class ContaWs {
                 }
 
                 jContas = new JSONObject();
-                jContas.put("idconta", conta.getIdConta());
+                jContas.put("idconta", conta.getIdconta());
                 jContas.put("descricao", conta.getDescricao());
-                jContas.put("tipoconta", conta.getTipoConta());
+                jContas.put("tipoconta", conta.getTipoconta());
                 jContas.put("valor", conta.getValor());
                 retorno.append(jContas.toString());
                 controle = true;
@@ -102,7 +102,7 @@ public class ContaWs {
             Conta conta = new Conta();
 
             conta.setDescricao(resposta.getString("descricao"));
-            conta.setTipoConta(resposta.getString("tipoconta"));
+            conta.setTipoconta(resposta.getString("tipoconta"));
             conta.setValor(resposta.getDouble("valor"));
 
             new ContaController().insereConta(conta);

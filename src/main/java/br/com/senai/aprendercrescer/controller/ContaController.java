@@ -26,15 +26,20 @@ public class ContaController {
     }
 
     public boolean insereConta(Conta conta) {
-        return ContaDao.insereConta(conta);
+        ContaDao.gravar(conta);
+        return true;
+      
     }
 
     public ArrayList<Conta> getConta() {
-        return ContaDao.getConta();
+        return ContaDao.getAll();
     }
 
     public boolean deleteConta(int id) {
-        return ContaDao.excluir(id);
+       Conta conta = new Conta();
+       conta.setIdconta(id);
+       ContaDao.apagar(conta);
+        return true;
         
     }
     
